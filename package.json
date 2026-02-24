@@ -1,0 +1,64 @@
+{
+  "name": "@shelv/adapters",
+  "version": "0.1.1",
+  "private": false,
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://docs.shelv.dev/guides/sandbox-adapters",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "tsup",
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit",
+    "test": "tsx --test src/*.test.ts src/**/*.test.ts",
+    "prepack": "pnpm run build"
+  },
+  "dependencies": {
+    "tar-stream": "^3.1.7"
+  },
+  "peerDependencies": {
+    "@daytonaio/sdk": "^0.144.0",
+    "@vercel/sandbox": "^1.6.0",
+    "e2b": "^2.12.1"
+  },
+  "peerDependenciesMeta": {
+    "@daytonaio/sdk": {
+      "optional": true
+    },
+    "@vercel/sandbox": {
+      "optional": true
+    },
+    "e2b": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/tar-stream": "^3.1.4",
+    "tsup": "^8.5.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.3"
+  }
+}
