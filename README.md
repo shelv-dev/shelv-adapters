@@ -2,6 +2,13 @@
 
 Provider-native adapters for hydrating Shelv shelves into sandbox runtimes and creating snapshots.
 
+## Links
+
+- Website: [shelv.dev](https://shelv.dev)
+- Docs: [docs.shelv.dev/guides/sandbox-adapters](https://docs.shelv.dev/guides/sandbox-adapters)
+- npm: [npmjs.com/package/@shelv/adapters](https://www.npmjs.com/package/@shelv/adapters)
+- Source: [github.com/shelv-dev/shelv-adapters](https://github.com/shelv-dev/shelv-adapters)
+
 ## Install
 
 ```bash
@@ -70,5 +77,3 @@ console.log(snapshot.snapshotId);
 ## License
 
 Apache-2.0.
-
-Source code: [github.com/shelv-dev/shelv-adapters](https://github.com/shelv-dev/shelv-adapters)
