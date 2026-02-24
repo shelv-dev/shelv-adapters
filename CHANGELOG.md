@@ -1,5 +1,11 @@
 # @shelv/adapters
 
+## 0.1.3
+
+### Patch Changes
+
+- Update npm README links for website, docs, and package metadata.
+
 ## 0.1.2
 
 ### Patch Changes
