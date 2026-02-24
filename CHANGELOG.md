@@ -1,5 +1,11 @@
 # @shelv/adapters
 
+## 0.1.2
+
+### Patch Changes
+
+- Trigger a new adapters publish after OSS public repo setup updates.
+
 ## 0.1.1
 
 ### Patch Changes
