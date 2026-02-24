@@ -71,4 +71,4 @@ console.log(snapshot.snapshotId);
 
 Apache-2.0.
 
-Source code: [github.com/shelv/shelv-adapters](https://github.com/shelv/shelv-adapters)
+Source code: [github.com/shelv-dev/shelv-adapters](https://github.com/shelv-dev/shelv-adapters)
