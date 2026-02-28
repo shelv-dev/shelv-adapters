@@ -73,7 +73,7 @@ export interface ResolveShelfSourceInput {
 }
 
 export interface HydrateResult {
-  provider: "vercel" | "daytona" | "e2b";
+  provider: "vercel" | "daytona" | "e2b" | "codesandbox" | "deno";
   sourceKind: ShelfSource["kind"];
   fileCount: number;
 }

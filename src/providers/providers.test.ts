@@ -3,6 +3,8 @@ import { describe, it } from "node:test";
 import { createVercelAdapter } from "./vercel";
 import { createDaytonaAdapter } from "./daytona";
 import { createE2BAdapter } from "./e2b";
+import { createCodeSandboxAdapter } from "./codesandbox";
+import { createDenoAdapter } from "./deno";
 import type { ShelvClient } from "../types";
 
 const mockClient: ShelvClient = {
@@ -121,5 +123,71 @@ describe("provider adapters", () => {
     assert.equal(hydrated.fileCount, 2);
     assert.equal(writes.length, 2);
     assert.equal(snap.snapshotId, "e_snap_123");
+  });
+
+  it("hydrates with codesandbox adapter via batchWrite", async () => {
+    const writes: Array<{ path: string; content: string | Uint8Array }> = [];
+    const adapter = createCodeSandboxAdapter();
+
+    const hydrated = await adapter.hydrate({
+      client: mockClient,
+      shelfPublicId: "shf_1234567890abcdef12345678",
+      mode: "tree-only",
+      sandbox: {
+        fs: {
+          async batchWrite(files) {
+            writes.push(...files);
+          },
+        },
+      },
+    });
+
+    assert.equal(hydrated.provider, "codesandbox");
+    assert.equal(hydrated.fileCount, 2);
+    assert.equal(writes.length, 2);
+  });
+
+  it("hydrates with codesandbox adapter via writeTextFile fallback", async () => {
+    const writes: Array<{ path: string; content: string }> = [];
+    const adapter = createCodeSandboxAdapter();
+
+    const hydrated = await adapter.hydrate({
+      client: mockClient,
+      shelfPublicId: "shf_1234567890abcdef12345678",
+      mode: "tree-only",
+      sandbox: {
+        fs: {
+          async writeTextFile(path, content) {
+            writes.push({ path, content });
+          },
+        },
+      },
+    });
+
+    assert.equal(hydrated.provider, "codesandbox");
+    assert.equal(hydrated.fileCount, 2);
+    assert.equal(writes.length, 2);
+  });
+
+  it("hydrates with deno adapter", async () => {
+    const writes: Array<{ path: string; content: string }> = [];
+    const adapter = createDenoAdapter();
+
+    const hydrated = await adapter.hydrate({
+      client: mockClient,
+      shelfPublicId: "shf_1234567890abcdef12345678",
+      mode: "tree-only",
+      sandbox: {
+        fs: {
+          async writeTextFile(path, content) {
+            writes.push({ path, content });
+          },
+        },
+      },
+    });
+
+    assert.equal(hydrated.provider, "deno");
+    assert.equal(hydrated.fileCount, 2);
+    assert.equal(writes.length, 2);
   });
 });

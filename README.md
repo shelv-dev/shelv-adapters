@@ -37,6 +37,8 @@ Install only the provider SDKs you use:
 pnpm add @vercel/sandbox
 pnpm add @daytonaio/sdk
 pnpm add e2b
+pnpm add @codesandbox/sdk
+pnpm add @deno/sandbox
 ```
 
 ## Quickstart
@@ -71,6 +73,8 @@ console.log(snapshot.snapshotId);
 - `createVercelAdapter()`
 - `createDaytonaAdapter()`
 - `createE2BAdapter()`
+- `createCodeSandboxAdapter()`
+- `createDenoAdapter()`
 
 `createShelvClient` defaults to `https://api.shelv.dev`. Set `apiBaseUrl` only for staging/self-hosted overrides.
 

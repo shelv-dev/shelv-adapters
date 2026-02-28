@@ -45,7 +45,9 @@
   "peerDependencies": {
     "@daytonaio/sdk": "^0.144.0",
     "@vercel/sandbox": "^1.6.0",
-    "e2b": "^2.12.1"
+    "e2b": "^2.12.1",
+    "@codesandbox/sdk": "^1.0.0",
+    "@deno/sandbox": "^0.1.0"
   },
   "peerDependenciesMeta": {
     "@daytonaio/sdk": {
@@ -55,6 +57,12 @@
       "optional": true
     },
     "e2b": {
+      "optional": true
+    },
+    "@codesandbox/sdk": {
+      "optional": true
+    },
+    "@deno/sandbox": {
       "optional": true
     }
   },
