@@ -1,5 +1,11 @@
 # @shelv/adapters
 
+## 0.2.0
+
+### Minor Changes
+
+- 64c2189: Add CodeSandbox and Deno sandbox adapters with hydrate-only support
+
 ## 0.1.3
 
 ### Patch Changes
