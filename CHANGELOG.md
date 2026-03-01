@@ -1,5 +1,11 @@
 # @shelv/adapters
 
+## 0.3.0
+
+### Minor Changes
+
+- b248307: Add Just-Bash sandbox adapter, Bash factory with lazy loading, and bash-tool helper for AI SDK agents
+
 ## 0.2.0
 
 ### Minor Changes
