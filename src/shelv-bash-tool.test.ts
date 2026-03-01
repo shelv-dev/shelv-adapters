@@ -3,6 +3,12 @@ import { describe, it } from "node:test";
 import { createShelvBashTool } from "./shelv-bash-tool";
 import type { ShelvClient } from "./types";
 
+let bashToolAvailable = false;
+try {
+  await (Function('return import("bash-tool")')() as Promise<unknown>);
+  bashToolAvailable = true;
+} catch {}
+
 const mockClient: ShelvClient = {
   async waitForArchiveUrl() {
     throw new Error("unused");
@@ -35,15 +41,21 @@ const mockClient: ShelvClient = {
 };
 
 describe("createShelvBashTool", () => {
-  it("throws helpful error when bash-tool is not installed", async () => {
-    await assert.rejects(
-      () =>
-        createShelvBashTool({
-          client: mockClient,
-          shelfPublicId: "shf_1234567890abcdef12345678",
-          mode: "tree-only",
-        }),
-      { message: /bash-tool is not installed/ },
-    );
-  });
+  it(
+    "throws helpful error when bash-tool is not installed",
+    {
+      skip: bashToolAvailable ? "bash-tool is installed" : false,
+    },
+    async () => {
+      await assert.rejects(
+        () =>
+          createShelvBashTool({
+            client: mockClient,
+            shelfPublicId: "shf_1234567890abcdef12345678",
+            mode: "tree-only",
+          }),
+        { message: /bash-tool is not installed/ },
+      );
+    },
+  );
 });
