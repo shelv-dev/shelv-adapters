@@ -40,6 +40,13 @@ export type TreeResponse = {
   files: ShelfFiles;
 };
 
+export type ListingResponse = {
+  shelfPublicId: string;
+  name: string;
+  fileCount: number;
+  paths: string[];
+};
+
 export interface ShelvClient {
   waitForArchiveUrl(
     shelfPublicId: string,
@@ -52,6 +59,7 @@ export interface ShelvClient {
   downloadArchive(archiveUrl: string): Promise<Uint8Array>;
   getTree(shelfPublicId: string): Promise<TreeResponse>;
   getFile(shelfPublicId: string, filePath: string): Promise<string>;
+  listFiles(shelfPublicId: string): Promise<ListingResponse>;
 }
 
 export interface ShelvClientConfig {
@@ -73,7 +81,7 @@ export interface ResolveShelfSourceInput {
 }
 
 export interface HydrateResult {
-  provider: "vercel" | "daytona" | "e2b" | "codesandbox" | "deno";
+  provider: "vercel" | "daytona" | "e2b" | "codesandbox" | "deno" | "just-bash";
   sourceKind: ShelfSource["kind"];
   fileCount: number;
 }
@@ -82,3 +90,21 @@ export interface SnapshotResult {
   provider: "vercel" | "daytona" | "e2b";
   snapshotId: string;
 }
+
+export interface ShelvBashInput extends ResolveShelfSourceInput {
+  lazy?: boolean;
+}
+
+export interface ShelvBashEagerResult {
+  files: Record<string, string>;
+  sourceKind: ShelfSource["kind"];
+  fileCount: number;
+}
+
+export interface ShelvBashLazyResult {
+  files: Record<string, () => Promise<string>>;
+  sourceKind: "listing";
+  fileCount: number;
+}
+
+export type ShelvBashResult = ShelvBashEagerResult | ShelvBashLazyResult;

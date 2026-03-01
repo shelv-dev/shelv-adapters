@@ -4,7 +4,8 @@ export type AdapterErrorCode =
   | "ARCHIVE_CHECKSUM_MISMATCH"
   | "ARCHIVE_PARSE_FAILED"
   | "TREE_FETCH_FAILED"
-  | "UNSUPPORTED_CLIENT";
+  | "UNSUPPORTED_CLIENT"
+  | "MISSING_DEPENDENCY";
 
 export class AdapterError extends Error {
   readonly code: AdapterErrorCode;

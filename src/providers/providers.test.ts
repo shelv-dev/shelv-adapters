@@ -5,6 +5,7 @@ import { createDaytonaAdapter } from "./daytona";
 import { createE2BAdapter } from "./e2b";
 import { createCodeSandboxAdapter } from "./codesandbox";
 import { createDenoAdapter } from "./deno";
+import { createJustBashAdapter } from "./just-bash";
 import type { ShelvClient } from "../types";
 
 const mockClient: ShelvClient = {
@@ -27,6 +28,14 @@ const mockClient: ShelvClient = {
   },
   async getFile() {
     throw new Error("unused");
+  },
+  async listFiles() {
+    return {
+      shelfPublicId: "shf_1234567890abcdef12345678",
+      name: "Demo",
+      fileCount: 2,
+      paths: ["README.md", "notes/todo.md"],
+    };
   },
 };
 
@@ -189,5 +198,42 @@ describe("provider adapters", () => {
     assert.equal(hydrated.provider, "deno");
     assert.equal(hydrated.fileCount, 2);
     assert.equal(writes.length, 2);
+  });
+
+  it("hydrates with just-bash adapter via writeFiles Record", async () => {
+    let written: Record<string, string> = {};
+    const adapter = createJustBashAdapter();
+
+    const hydrated = await adapter.hydrate({
+      client: mockClient,
+      shelfPublicId: "shf_1234567890abcdef12345678",
+      mode: "tree-only",
+      sandbox: {
+        async writeFiles(files) {
+          written = files;
+        },
+      },
+    });
+
+    assert.equal(hydrated.provider, "just-bash");
+    assert.equal(hydrated.fileCount, 2);
+    assert.equal(Object.keys(written).length, 2);
+    assert.equal(written["README.md"], "# demo");
+    assert.equal(written["notes/todo.md"], "- one");
+  });
+
+  it("throws when just-bash sandbox lacks writeFiles", async () => {
+    const adapter = createJustBashAdapter();
+
+    await assert.rejects(
+      () =>
+        adapter.hydrate({
+          client: mockClient,
+          shelfPublicId: "shf_1234567890abcdef12345678",
+          mode: "tree-only",
+          sandbox: {},
+        }),
+      { message: /writeFiles/ },
+    );
   });
 });

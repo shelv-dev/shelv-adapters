@@ -2,6 +2,7 @@ import { AdapterError } from "./errors";
 import type {
   ArchiveUrlGenerating,
   ArchiveUrlReady,
+  ListingResponse,
   ShelvClient,
   ShelvClientConfig,
   TreeResponse,
@@ -97,6 +98,12 @@ export function createShelvClient(config: ShelvClientConfig): ShelvClient {
 
     async getTree(shelfPublicId) {
       return requestJson<TreeResponse>(`/v1/shelves/${shelfPublicId}/tree`);
+    },
+
+    async listFiles(shelfPublicId) {
+      return requestJson<ListingResponse>(
+        `/v1/shelves/${shelfPublicId}/listing`,
+      );
     },
 
     async getFile(shelfPublicId, filePath) {

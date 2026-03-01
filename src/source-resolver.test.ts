@@ -55,6 +55,9 @@ describe("resolveShelfSource", () => {
       async getFile() {
         throw new Error("unused");
       },
+      async listFiles() {
+        throw new Error("unused");
+      },
     };
 
     const source = await resolveShelfSource({
@@ -86,6 +89,9 @@ describe("resolveShelfSource", () => {
       async getFile() {
         throw new Error("unused");
       },
+      async listFiles() {
+        throw new Error("unused");
+      },
     };
 
     const source = await resolveShelfSource({
@@ -115,6 +121,9 @@ describe("resolveShelfSource", () => {
         };
       },
       async getFile() {
+        throw new Error("unused");
+      },
+      async listFiles() {
         throw new Error("unused");
       },
     };
