@@ -7,7 +7,9 @@ let bashToolAvailable = false;
 try {
   await (Function('return import("bash-tool")')() as Promise<unknown>);
   bashToolAvailable = true;
-} catch {}
+} catch {
+  // bash-tool not available — tests that need it will be skipped
+}
 
 const mockClient: ShelvClient = {
   async waitForArchiveUrl() {
